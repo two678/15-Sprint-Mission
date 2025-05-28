@@ -18,6 +18,8 @@ import {
   AllItemsSortMenu,
   AllItemsSortOption,
 } from "./AllItems.styles";
+import Skeleton from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
 
 const AllItemsHeader = ({
   isMobile,

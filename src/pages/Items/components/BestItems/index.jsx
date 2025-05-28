@@ -12,12 +12,44 @@ import {
   BestItemsPrice,
 } from "./BestItems.styles";
 import heart from "/icons/ic_heart.svg";
+import Skeleton from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
 
 function BestItems() {
   const { isMobile, isTablet } = useScreenSize();
   const { items, loading, error } = useProducts(1, 4, "favorite");
 
-  if (loading) return <div>로딩 중...</div>;
+  if (loading) {
+    const skeletonCount = isMobile ? 1 : isTablet ? 2 : 4;
+    const imageWidth = isTablet || isMobile ? 343 : 282;
+    const imageHeight = isMobile || isTablet ? 387 : 318;
+    const nameWidth = isMobile ? 100 : isTablet ? 140 : 166;
+    const priceWidth = isMobile ? 60 : isTablet ? 80 : 100;
+
+    return (
+      <div css={BestItemsContainer}>
+        <Skeleton width={92} height={30} />
+        <ul css={BestItemsGridContainer}>
+          {Array.from({ length: skeletonCount }).map((_, i) => (
+            <li key={i}>
+              <Skeleton
+                width={imageWidth}
+                height={imageHeight}
+                style={{ marginBottom: 12 }}
+              />
+              <Skeleton
+                width={nameWidth}
+                height={24}
+                style={{ marginBottom: 8 }}
+              />
+              <Skeleton width={priceWidth} height={20} />
+            </li>
+          ))}
+        </ul>
+      </div>
+    );
+  }
+
   if (error) return <div>에러: {error}</div>;
   if (!Array.isArray(items) || items.length === 0)
     return <div>상품이 없습니다.</div>;

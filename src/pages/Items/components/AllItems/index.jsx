@@ -18,6 +18,8 @@ import {
 } from "./AllItems.styles";
 import { useNavigate } from "react-router-dom";
 import AllItemsHeader from "./AllItemsHeader";
+import Skeleton from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
 
 function AllItems() {
   const { isMobile, isTablet } = useScreenSize();
