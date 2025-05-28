@@ -1,15 +1,14 @@
 import { productCommentAPI } from "@/api/productCommentAPi";
 import { useState, useEffect } from "react";
-import { useLocation } from "react-router-dom";
 import CommentItem from "./CommentItem";
 import CommentEmpty from "/images/Img_empty.png";
 import { css } from "@emotion/react";
 import { desktop } from "@/styles/utils/mixins";
+import { useParams } from "react-router-dom";
 
 function CommentList() {
   const [comments, setComments] = useState([]);
-  const location = useLocation();
-  const productId = location.pathname.split("/")[2];
+  const { productId } = useParams();
 
   useEffect(() => {
     const fetchComments = async () => {

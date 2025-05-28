@@ -1,7 +1,7 @@
 import baseAPI from "./axios";
 
 export const commentAPI = {
-  postComment: async (productId, content) => {
+  post: async (productId, content) => {
     try {
       const response = await baseAPI.post(`/products/${productId}/comments`, {
         content,
@@ -12,7 +12,7 @@ export const commentAPI = {
       throw new Error("댓글 작성 실패");
     }
   },
-  patchComment: async (commentId, content) => {
+  patch: async (commentId, content) => {
     try {
       const response = await baseAPI.patch(`/comments/${commentId}`, {
         content,
@@ -23,7 +23,7 @@ export const commentAPI = {
       throw new Error("댓글 수정 실패");
     }
   },
-  deleteComment: async (commentId) => {
+  delete: async (commentId) => {
     try {
       const response = await baseAPI.delete(`/comments/${commentId}`);
       return response.data;

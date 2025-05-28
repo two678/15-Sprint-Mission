@@ -1,12 +1,11 @@
 import ProductDetail from "./components/ProductDetail";
 import ProductComment from "./components/ProductComment";
-import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { css } from "@emotion/react";
 import backIcon from "/icons/ic_back.svg";
 import { mobile, tablet, flexCenter } from "@/styles/utils/mixins";
 
 function ProductId() {
-  const navigate = useNavigate();
   return (
     <main css={ProductIdContainer}>
       <section css={ProductIdSection}>
@@ -15,10 +14,10 @@ function ProductId() {
         </div>
         <ProductComment />
       </section>
-      <button css={gotoListButton} onClick={() => navigate("/items")}>
+      <Link css={gotoListButton} to={"/items"}>
         목록으로 돌아가기
         <img src={backIcon} alt="backIcon" />
-      </button>
+      </Link>
     </main>
   );
 }
