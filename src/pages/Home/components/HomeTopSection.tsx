@@ -1,3 +1,4 @@
+import React from "react";
 import topImage from "/images/Img_home_top.png";
 import { Link } from "react-router-dom";
 import {
@@ -5,15 +6,15 @@ import {
   bgDescriptionStyle,
   lineBreakStyle,
   h2Style,
-} from "../styles/HomeCommonSection.styles.js";
+} from "../styles/HomeCommonSection.styles";
 import {
   topStyle,
   topSectionStyle,
   topImg,
   itemsBtn,
-} from "../styles/HomeTopSection.styles.js";
+} from "../styles/HomeTopSection.styles";
 
-function HomeTopSection() {
+function HomeTopSection(): React.JSX.Element {
   return (
     <section css={[backgroundStyle, topSectionStyle]}>
       <div css={[bgDescriptionStyle, topStyle]}>
