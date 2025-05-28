@@ -16,7 +16,7 @@ import {
   AllItemsContainer,
   AllItemsImage,
 } from "./AllItems.styles";
-import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import AllItemsHeader from "./AllItemsHeader";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
@@ -35,7 +35,6 @@ function AllItems() {
     sortOption,
     keyword
   );
-  const navigate = useNavigate();
 
   const onPageChange = (e, page) => {
     setCurrentPage(page);
@@ -111,7 +110,7 @@ function AllItems() {
         ) : Array.isArray(items) && items.length > 0 ? (
           <ul css={AllItemsGridContainer}>
             {displayItems.map((item) => (
-              <li key={item.id}>
+              <Link key={item.id} to={`/items/${item.id}`}>
                 <article css={AllItemsContainer}>
                   <div
                     style={{
@@ -128,9 +127,6 @@ function AllItems() {
                         onError={(e) => {
                           e.target.src = defaultImage;
                         }}
-                        onClick={() => {
-                          navigate(`/items/${item.id}`);
-                        }}
                       />
                     )}
                   </div>
@@ -143,7 +139,7 @@ function AllItems() {
                     </p>
                   </div>
                 </article>
-              </li>
+              </Link>
             ))}
           </ul>
         ) : (
