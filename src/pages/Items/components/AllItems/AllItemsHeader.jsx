@@ -30,7 +30,8 @@ const AllItemsHeader = ({
   handleSortOptionSelect,
   getSortButtonText,
   sortMenuRef,
-  onSearch, // 검색 실행 함수
+  onSearch,
+  loading,
 }) => {
   const handleSearch = () => {
     onSearch(); // 검색 실행
@@ -41,6 +42,30 @@ const AllItemsHeader = ({
       handleSearch(); // 엔터 키를 눌렀을 때 검색 실행
     }
   };
+
+  if (loading) {
+    return isMobile ? (
+      <header css={AllItemsHeaderStyle}>
+        <div css={AllItemsTopRow}>
+          <Skeleton width={92} height={30} style={{ marginBottom: 16 }} />
+          <Skeleton width={100} height={36} />
+        </div>
+        <div css={AllItemsBottomRow}>
+          <Skeleton width={220} height={36} style={{ marginRight: 12 }} />
+          <Skeleton width={36} height={36} circle />
+        </div>
+      </header>
+    ) : (
+      <header css={AllItemsHeaderStyle}>
+        <Skeleton width={92} height={30} style={{ marginBottom: 16 }} />
+        <div css={AllItemsFilterContainer}>
+          <Skeleton width={220} height={36} style={{ marginRight: 16 }} />
+          <Skeleton width={120} height={36} style={{ marginRight: 16 }} />
+          <Skeleton width={100} height={36} />
+        </div>
+      </header>
+    );
+  }
 
   return (
     <header css={AllItemsHeaderStyle}>

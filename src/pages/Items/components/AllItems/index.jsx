@@ -23,8 +23,8 @@ import "react-loading-skeleton/dist/skeleton.css";
 
 function AllItems() {
   const { isMobile, isTablet } = useScreenSize();
-  const [searchTerm, setSearchTerm] = useState(""); // 입력용
-  const [keyword, setKeyword] = useState(""); // 실제 검색 요청용
+  const [searchTerm, setSearchTerm] = useState("");
+  const [keyword, setKeyword] = useState("");
   const [sortMenuOpen, setSortMenuOpen] = useState(false);
   const [sortOption, setSortOption] = useState("recent");
   const sortMenuRef = useRef(null);
@@ -54,7 +54,6 @@ function AllItems() {
         setSortMenuOpen(false);
       }
     }
-
     document.addEventListener("mousedown", handleClickOutside);
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
@@ -79,8 +78,8 @@ function AllItems() {
     return sortOption === "recent" ? "최신순" : "좋아요 순";
   };
 
-  if (loading) return <div>로딩 중...</div>;
-  if (error) return <div>에러: {error}</div>;
+  // 상품 목록 Skeleton 개수
+  const skeletonCount = isMobile ? 4 : isTablet ? 6 : 10;
 
   return (
     <section css={BestItemsContainer}>
@@ -93,11 +92,23 @@ function AllItems() {
         handleSortOptionSelect={handleSortOptionSelect}
         getSortButtonText={getSortButtonText}
         sortMenuRef={sortMenuRef}
-        onSearch={handleSearch} // 검색 실행
+        onSearch={handleSearch}
+        loading={loading}
       />
       <main>
-        {/* 상품이 없을 때에도 헤더는 렌더링하고 상품 목록은 표시하지 않음 */}
-        {Array.isArray(items) && items.length > 0 ? (
+        {error ? (
+          <div>에러: {error}</div>
+        ) : loading ? (
+          <ul css={AllItemsGridContainer}>
+            {Array.from({ length: skeletonCount }).map((_, i) => (
+              <li key={i}>
+                <Skeleton width={221} height={243} />
+                <Skeleton width="70%" height={24} style={{ marginBottom: 8 }} />
+                <Skeleton width="40%" height={20} />
+              </li>
+            ))}
+          </ul>
+        ) : Array.isArray(items) && items.length > 0 ? (
           <ul css={AllItemsGridContainer}>
             {displayItems.map((item) => (
               <li key={item.id}>
@@ -139,47 +150,46 @@ function AllItems() {
           <div>상품이 없습니다.</div>
         )}
       </main>
-      <Pagination
-        count={Math.ceil(totalCount / 10)} // 전체 페이지 계산
-        page={currentPage}
-        onChange={onPageChange}
-        defaultPage={1}
-        siblingCount={2}
-        size="medium"
-        color="primary"
-        sx={{
-          display: "flex",
-          justifyContent: "center",
-          padding: "15px 0",
-          margin: "0 auto 58px",
-          "& .MuiPaginationItem-ellipsis": {
-            display: "none",
-          },
-        }}
-        renderItem={(item) => {
-          if (item.type === "page") {
-            const pageNum = item.page;
-
-            let startPage, endPage;
-
-            if (currentPage <= 3) {
-              startPage = 1;
-              endPage = 5;
-            } else if (currentPage >= Math.ceil(totalCount / 10) - 2) {
-              startPage = Math.max(1, Math.ceil(totalCount / 10) - 4);
-              endPage = Math.ceil(totalCount / 10);
-            } else {
-              startPage = currentPage - 2;
-              endPage = currentPage + 2;
+      {!loading && (
+        <Pagination
+          count={Math.ceil(totalCount / 10)}
+          page={currentPage}
+          onChange={onPageChange}
+          defaultPage={1}
+          siblingCount={2}
+          size="medium"
+          color="primary"
+          sx={{
+            display: "flex",
+            justifyContent: "center",
+            padding: "15px 0",
+            margin: "0 auto 58px",
+            "& .MuiPaginationItem-ellipsis": {
+              display: "none",
+            },
+          }}
+          renderItem={(item) => {
+            if (item.type === "page") {
+              const pageNum = item.page;
+              let startPage, endPage;
+              if (currentPage <= 3) {
+                startPage = 1;
+                endPage = 5;
+              } else if (currentPage >= Math.ceil(totalCount / 10) - 2) {
+                startPage = Math.max(1, Math.ceil(totalCount / 10) - 4);
+                endPage = Math.ceil(totalCount / 10);
+              } else {
+                startPage = currentPage - 2;
+                endPage = currentPage + 2;
+              }
+              if (pageNum < startPage || pageNum > endPage) {
+                return null;
+              }
             }
-
-            if (pageNum < startPage || pageNum > endPage) {
-              return null;
-            }
-          }
-          return <PaginationItem {...item} sx={{ fontSize: 12 }} />;
-        }}
-      />
+            return <PaginationItem {...item} sx={{ fontSize: 12 }} />;
+          }}
+        />
+      )}
     </section>
   );
 }
