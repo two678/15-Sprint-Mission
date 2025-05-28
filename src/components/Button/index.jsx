@@ -24,7 +24,7 @@ const ButtonStyle = css`
 
 function Button({ children, type = "submit", disabled = false }) {
   return (
-    <button css={ButtonStyle(disabled)} type={type} disabled={disabled}>
+    <button css={ButtonStyle} type={type} disabled={disabled}>
       {children}
     </button>
   );

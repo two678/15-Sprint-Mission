@@ -11,7 +11,7 @@ import {
   bottomImgStyle,
 } from "../styles/HomeBottomSection.styles.js";
 
-function HomeBottomSection() {
+function HomeBottomSection(): React.JSX.Element {
   return (
     <section css={[backgroundStyle, bottomSectionStyle]}>
       <div css={[bgDescriptionStyle, bottomStyle]}>

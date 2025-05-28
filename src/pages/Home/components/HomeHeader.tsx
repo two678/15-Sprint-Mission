@@ -5,7 +5,7 @@ import logoMobile from "/logo/logo_mobile.png";
 import useScreenSize from "@/hooks/useScreenSize";
 import { nav, logoWrapper, loginBtn } from "../styles/HomeHeader.styles.js";
 
-function HomeHeader() {
+function HomeHeader(): React.JSX.Element {
   const { isMobile } = useScreenSize(); // 훅 사용
   const logoImg = isMobile ? logoMobile : logo; // 화면 크기에 따라 로고 선택
   const logoSize = !isMobile; // 화면 크기에 따라 로고 크기 결정

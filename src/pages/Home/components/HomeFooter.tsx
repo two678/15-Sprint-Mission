@@ -13,7 +13,7 @@ import {
   iconImg,
 } from "../styles/HomeFooter.styles";
 
-function HomeFooter() {
+function HomeFooter(): React.JSX.Element {
   return (
     <footer css={footer}>
       <div css={footerContainer}>

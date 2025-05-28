@@ -1,4 +1,3 @@
-import React from "react";
 import topImage from "/images/Img_home_top.png";
 import { Link } from "react-router-dom";
 import {

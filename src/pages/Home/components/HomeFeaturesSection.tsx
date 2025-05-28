@@ -12,7 +12,7 @@ import {
   featuresLineBreakStyle,
 } from "../styles/HomeFeaturesSection.styles";
 
-function HomeFeaturesSection() {
+function HomeFeaturesSection(): React.JSX.Element {
   return (
     <section css={mainContainer}>
       <article css={container}>
