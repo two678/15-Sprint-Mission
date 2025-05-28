@@ -43,6 +43,11 @@ export const LinkWrapperStyle = css`
   font-weight: 700;
   line-height: 26px;
 
+  a.active {
+    color: var(--blue100);
+    text-decoration: none;
+  }
+
   ${mobile(css`
     gap: 8px;
   `)}
@@ -60,12 +65,4 @@ export const ProfileImgStyle = css`
   ${mobile(css`
     margin-right: 16px;
   `)}
-`;
-
-export const LinkStyle = css`
-  color: var(--blue100);
-`;
-
-export const DefaultStyle = css`
-  color: var(--gray600);
 `;

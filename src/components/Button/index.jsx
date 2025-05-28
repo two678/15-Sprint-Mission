@@ -1,7 +1,7 @@
 import { css } from "@emotion/react";
 import { mobile } from "@/styles/utils/mixins";
 
-const ButtonStyle = (disabled) => css`
+const ButtonStyle = css`
   width: 100%;
   height: 56px;
   font-size: 20px;
@@ -13,10 +13,9 @@ const ButtonStyle = (disabled) => css`
   color: var(--gray100);
   background-color: var(--blue100);
 
-  ${disabled &&
-  css`
+  &:disabled {
     background-color: var(--gray400);
-  `}
+  }
 
   ${mobile(css`
     width: 100%;

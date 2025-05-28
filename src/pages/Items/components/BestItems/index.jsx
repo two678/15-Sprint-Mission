@@ -14,6 +14,7 @@ import {
 import heart from "/icons/ic_heart.svg";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
+import { Link } from "react-router-dom";
 
 function BestItems() {
   const { isMobile, isTablet } = useScreenSize();
@@ -68,7 +69,7 @@ function BestItems() {
       <main>
         <ul css={BestItemsGridContainer}>
           {displayItems.map((item) => (
-            <li key={item.id}>
+            <Link key={item.id} to={`/items/${item.id}`}>
               <article css={ItemsContainer}>
                 {item.images && (
                   <img src={item.images} alt={item.name} css={BestItemsImage} />
@@ -82,7 +83,7 @@ function BestItems() {
                   </p>
                 </div>
               </article>
-            </li>
+            </Link>
           ))}
         </ul>
       </main>

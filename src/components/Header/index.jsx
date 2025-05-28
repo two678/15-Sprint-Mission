@@ -1,4 +1,4 @@
-import { Link } from "react-router";
+import { NavLink } from "react-router-dom";
 import { Logo } from "@/components/Logo";
 import { useState, useEffect } from "react";
 import logo from "/logo/logo.png";
@@ -9,24 +9,11 @@ import {
   LogoStyle,
   ProfileImgStyle,
   LinkWrapperStyle,
-  LinkStyle,
 } from "./Header.styles";
-import { useLocation } from "react-router";
 
 function Header() {
   const [logoImg, setLogoImg] = useState(logo);
   const [logoSize, setLogoSize] = useState(true);
-  const location = useLocation();
-
-  const getName = () => {
-    switch (location.pathname) {
-      case "/items":
-      case "/additem":
-        return LinkStyle;
-      default:
-        return "DefaultStyle"; // 기본 클래스
-    }
-  };
 
   useEffect(() => {
     const handleResize = () => {
@@ -39,13 +26,8 @@ function Header() {
       }
     };
 
-    // 초기 로드시 한번 실행
     handleResize();
-
-    // 리사이즈 이벤트 리스너 등록
     window.addEventListener("resize", handleResize);
-
-    // 클린업 함수
     return () => {
       window.removeEventListener("resize", handleResize);
     };
@@ -59,10 +41,8 @@ function Header() {
           variant={logoSize ? "homeDesktop" : "homeMobile"}
         />
         <div css={LinkWrapperStyle}>
-          <Link to="/board">자유게시판</Link>
-          <Link to="/items" css={getName()}>
-            중고마켓
-          </Link>
+          <NavLink to="/board">자유게시판</NavLink>
+          <NavLink to="/items">중고마켓</NavLink>
         </div>
       </div>
       <img css={ProfileImgStyle} src={profileImg} alt="프로필 이미지" />
